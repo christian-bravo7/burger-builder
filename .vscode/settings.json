@@ -1,0 +1,5 @@
+{
+  "prettier.configPath": ".prettierrc",
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": ["source.fixAll.format", "source.fixAll.eslint"]
+}
