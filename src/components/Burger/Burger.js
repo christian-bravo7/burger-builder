@@ -6,15 +6,26 @@ import classes from '@/components/Burger/Burger.module.css';
 
 class Burger extends Component {
   render () {
-    const burgerIngredients = Object.entries(this.props.ingredients).map(
-      ([ingredient, quantity]) => {
-        const elements = [...Array(quantity)].map((_, index) => (
-          <BurgerIngredient key={index} ingredient={ingredient} />
+    const burgerIngredients = Object.keys(this.props.ingredients)
+      .map(ingredient => {
+        const quantity = this.props.ingredients[ingredient];
+
+        const ingredients = [...Array(quantity)].map((_, index) => (
+          <BurgerIngredient
+            key={`${ingredient}-${index}`}
+            ingredient={ingredient}
+          />
         ));
 
-        return elements;
-      }
-    );
+        return ingredients;
+      })
+      .reduce(
+        (previousValue, currentValue) => [
+          ...previousValue,
+          ...currentValue,
+        ],
+        []
+      );
 
     return (
       <div className={classes.Burger}>
