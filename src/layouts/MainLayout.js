@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import proptypes from 'prop-types';
+import classes from '@/layouts/MainLayout.module.css';
 
 class MainLayout extends Component {
   render () {
     return (
-      <main>
+      <main className={classes.MainLayout}>
         <nav>Navbar</nav>
-        <section>{this.props.children}</section>
+        <section className={classes.MainLayout__Content}>
+          {this.props.children}
+        </section>
       </main>
     );
   }
