@@ -78,13 +78,15 @@ class BurgerBuilder extends Component {
   render () {
     return (
       <div className={classes.BurgerBuilder}>
-        <Burger ingredients={this.state.ingredients} />
+        <Burger
+          ingredients={this.state.ingredients}
+          totalCost={this.totalCost}
+        />
         <BuildControls
           controlsState={this.buildButtonStateByIngredient}
           onAddIngredient={this.handleAddIngredient}
           onRemoveIngredient={this.handleRemoveIngredient}
         />
-        {this.totalCost}
       </div>
     );
   }

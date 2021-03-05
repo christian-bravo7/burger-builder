@@ -27,11 +27,25 @@ class Burger extends Component {
         []
       );
 
+    const formattedPrice = price => `$ ${price.toFixed(2)}`;
+
     return (
       <div className={classes.Burger}>
-        <BurgerIngredient ingredient="bread-top" />
-        {burgerIngredients}
-        <BurgerIngredient ingredient="bread-bottom" />
+        <div className={classes.BurgerWrapper}>
+          <div className={classes.BurgerContainer}>
+            <BurgerIngredient ingredient="bread-top" />
+            {burgerIngredients}
+            <BurgerIngredient ingredient="bread-bottom" />
+          </div>
+          <div className={classes.BurgerPrice}>
+            <span className={classes.BurgerPrice__Label}>
+              Total cost:
+            </span>
+            <span className={classes.BurgerPrice__Cost}>
+              {formattedPrice(this.props.totalCost)}
+            </span>
+          </div>
+        </div>
       </div>
     );
   }
@@ -39,6 +53,7 @@ class Burger extends Component {
 
 Burger.propTypes = {
   ingredients: proptypes.object,
+  totalCost: proptypes.number.isRequired,
 };
 
 export default Burger;
