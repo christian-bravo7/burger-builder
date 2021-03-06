@@ -1,17 +1,17 @@
-import propTypes from 'prop-types';
+import proptypes from 'prop-types';
 
 import classes from '@/components/BuildControls/BuildControl/BuildControl.module.css';
 
+import formatPrice from '@/utils/formatPrice';
+
 const BuildControl = ({
   label,
+  price,
+  count,
+  isRemoveButtonDisabled,
   onAdd,
   onRemove,
-  isRemoveButtonDisabled,
-  count,
-  price,
 }) => {
-  const formattedPrice = price => `$ ${price.toFixed(2)}`;
-
   return (
     <div className={classes.BuildControl}>
       <p className={classes.Label}>{label}</p>
@@ -32,19 +32,19 @@ const BuildControl = ({
             +
           </button>
         </div>
-        <span className={classes.Price}>{formattedPrice(price)}</span>
+        <span className={classes.Price}>{formatPrice(price)}</span>
       </div>
     </div>
   );
 };
 
 BuildControl.propTypes = {
-  label: propTypes.string.isRequired,
-  onAdd: propTypes.func.isRequired,
-  onRemove: propTypes.func.isRequired,
-  isRemoveButtonDisabled: propTypes.bool.isRequired,
-  count: propTypes.number.isRequired,
-  price: propTypes.number.isRequired,
+  label: proptypes.string.isRequired,
+  price: proptypes.number.isRequired,
+  count: proptypes.number.isRequired,
+  isRemoveButtonDisabled: proptypes.bool.isRequired,
+  onAdd: proptypes.func.isRequired,
+  onRemove: proptypes.func.isRequired,
 };
 
 export default BuildControl;

@@ -1,0 +1,21 @@
+.AppButton {
+  padding: 16px 24px;
+  font-size: 16px;
+  border-radius: 30px;
+  background-color: #ff1871;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition-property: background-color;
+  transition-duration: 300ms;
+}
+
+.AppButton:hover {
+  background-color: #db0c5b;
+}
+
+.AppButton:focus {
+  box-shadow: 0px 0px 0px 5px #ffc3da;
+  outline: none;
+}

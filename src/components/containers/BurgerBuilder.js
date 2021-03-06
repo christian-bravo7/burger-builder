@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import Burger from '@/components/Burger/Burger';
 import BuildControls from '@/components/BuildControls/BuildControls';
+import AppButton from '@/components/App/Button/AppButton';
+import AppModal from '@/components/App/Modal/AppModal';
+import OrderDetails from '@/components/OrderDetails/OrderDetails';
+
 import classes from '@/components/containers/BurgerBuilder.module.css';
 
 const ingredientsCost = {
@@ -20,6 +24,7 @@ class BurgerBuilder extends Component {
       cheese: 1,
     },
     totalCost: 0,
+    isOrderDetailsModalVisible: false,
   };
 
   get totalCost () {
@@ -75,6 +80,18 @@ class BurgerBuilder extends Component {
     );
   };
 
+  handleCloseModal = () => {
+    console.log('close');
+  };
+
+  openOrderDetailsModal = () => {
+    this.setState({ isOrderDetailsModalVisible: true });
+  };
+
+  closeOrderDetailsModal = () => {
+    this.setState({ isOrderDetailsModalVisible: false });
+  };
+
   render () {
     return (
       <div className={classes.BurgerBuilder}>
@@ -87,6 +104,20 @@ class BurgerBuilder extends Component {
           onAddIngredient={this.handleAddIngredient}
           onRemoveIngredient={this.handleRemoveIngredient}
         />
+        {this.state.isOrderDetailsModalVisible && (
+          <AppModal
+            onClose={this.closeOrderDetailsModal}
+            title="Order details"
+          >
+            <OrderDetails />
+          </AppModal>
+        )}
+        <AppButton
+          onClick={this.openOrderDetailsModal}
+          className={classes.CompleteOrderButton}
+        >
+          Complete order
+        </AppButton>
       </div>
     );
   }

@@ -1,6 +1,8 @@
-import classes from '@/components/BuildControls/BuildControls.module.css';
-import BuildControl from '@/components/BuildControls/BuildControl/BuildControl';
 import proptypes from 'prop-types';
+
+import BuildControl from '@/components/BuildControls/BuildControl/BuildControl';
+
+import classes from '@/components/BuildControls/BuildControls.module.css';
 
 const controls = [
   { label: 'Salad', ingredient: 'salad' },
