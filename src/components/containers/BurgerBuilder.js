@@ -80,15 +80,11 @@ class BurgerBuilder extends Component {
     );
   };
 
-  handleCloseModal = () => {
-    console.log('close');
-  };
-
-  openOrderDetailsModal = () => {
+  handleOpenModal = () => {
     this.setState({ isOrderDetailsModalVisible: true });
   };
 
-  closeOrderDetailsModal = () => {
+  handleCloseModal = () => {
     this.setState({ isOrderDetailsModalVisible: false });
   };
 
@@ -106,14 +102,14 @@ class BurgerBuilder extends Component {
         />
         {this.state.isOrderDetailsModalVisible && (
           <AppModal
-            onClose={this.closeOrderDetailsModal}
+            onClose={this.handleCloseModal}
             title="Order details"
           >
             <OrderDetails />
           </AppModal>
         )}
         <AppButton
-          onClick={this.openOrderDetailsModal}
+          onClick={this.handleOpenModal}
           className={classes.CompleteOrderButton}
         >
           Complete order
