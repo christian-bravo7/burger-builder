@@ -2,37 +2,51 @@ import proptypes from 'prop-types';
 
 import BuildControl from '@/components/BuildControls/BuildControl/BuildControl';
 
-import classes from '@/components/BuildControls/BuildControls.module.css';
+import { ingredientsConfig } from '@/utils/config';
+import formatPrice from '@/utils/formatPrice';
 
-const controls = [
-  { label: 'Salad', ingredient: 'salad' },
-  { label: 'Bacon', ingredient: 'bacon' },
-  { label: 'Cheese', ingredient: 'cheese' },
-  { label: 'Meat', ingredient: 'meat' },
-];
+import classes from '@/components/BuildControls/BuildControls.module.scss';
 
 const BuildControls = ({
   onAddIngredient,
   onRemoveIngredient,
-  controlsState,
+  ingredientsState,
 }) => {
+  const buildControls = Object.keys(ingredientsConfig).map(
+    ingredient => {
+      return {
+        ingredient,
+        label: ingredientsConfig[ingredient].label,
+        price: formatPrice(ingredientsConfig[ingredient].price),
+        count: ingredientsState[ingredient].count,
+        isRemoveButtonDisabled:
+          ingredientsState[ingredient].count <= 0,
+      };
+    }
+  );
+
   return (
     <div className={classes.BuildControls}>
-      {controls.map(({ label, ingredient }, index) => (
-        <BuildControl
-          key={index}
-          label={label}
-          isRemoveButtonDisabled={controlsState[ingredient].disabled}
-          count={controlsState[ingredient].count}
-          price={controlsState[ingredient].price}
-          onAdd={() => {
-            onAddIngredient(ingredient);
-          }}
-          onRemove={() => {
-            onRemoveIngredient(ingredient);
-          }}
-        />
-      ))}
+      {buildControls.map(
+        (
+          { label, ingredient, price, count, isRemoveButtonDisabled },
+          index
+        ) => (
+          <BuildControl
+            key={index}
+            label={label}
+            count={count}
+            price={price}
+            isRemoveButtonDisabled={isRemoveButtonDisabled}
+            onAdd={() => {
+              onAddIngredient(ingredient);
+            }}
+            onRemove={() => {
+              onRemoveIngredient(ingredient);
+            }}
+          />
+        )
+      )}
     </div>
   );
 };
@@ -40,7 +54,7 @@ const BuildControls = ({
 BuildControls.propTypes = {
   onAddIngredient: proptypes.func.isRequired,
   onRemoveIngredient: proptypes.func.isRequired,
-  controlsState: proptypes.object.isRequired,
+  ingredientsState: proptypes.object.isRequired,
 };
 
 export default BuildControls;

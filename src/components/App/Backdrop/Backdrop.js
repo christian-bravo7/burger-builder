@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import proptypes from 'prop-types';
 
-import classes from '@/components/App/Backdrop/Backdrop.module.css';
+import classes from '@/components/App/Backdrop/Backdrop.module.scss';
 
-const AppBackdrop = ({ children, onClick }) => {
+const AppBackdrop = ({ onClick }) => {
   const backdropRef = useRef(null);
 
-  const handleBackdropClick = e => {
-    if (e.target === backdropRef.current) {
+  const handleBackdropClick = event => {
+    if (event.target === backdropRef.current) {
       onClick();
     }
   };
@@ -17,9 +17,7 @@ const AppBackdrop = ({ children, onClick }) => {
       ref={backdropRef}
       className={classes.AppBackdrop}
       onClick={handleBackdropClick}
-    >
-      {children}
-    </div>
+    />
   );
 };
 

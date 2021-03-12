@@ -9,13 +9,18 @@
   font-weight: bold;
   transition-property: background-color;
   transition-duration: 300ms;
-}
 
-.AppButton:hover {
-  background-color: #db0c5b;
-}
+  &:hover {
+    background-color: #db0c5b;
+  }
 
-.AppButton:focus {
-  box-shadow: 0px 0px 0px 5px #ffc3da;
-  outline: none;
+  &:focus {
+    box-shadow: 0px 0px 0px 5px #ffc3da;
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #999999;
+    cursor: not-allowed;
+  }
 }

@@ -6,15 +6,9 @@ import AppButton from '@/components/App/Button/AppButton';
 import AppModal from '@/components/App/Modal/AppModal';
 import OrderDetails from '@/components/OrderDetails/OrderDetails';
 
+import { ingredientsConfig } from '@/utils/config';
+
 import classes from '@/components/containers/BurgerBuilder.module.css';
-
-const ingredientsCost = {
-  bacon: 20,
-  meat: 20,
-  salad: 5,
-  cheese: 10,
-};
-
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
@@ -30,7 +24,7 @@ class BurgerBuilder extends Component {
   get totalCost () {
     const cost = Object.keys(this.state.ingredients).reduce(
       (accumulator, currentIngredient) => {
-        const unitCost = ingredientsCost[currentIngredient];
+        const unitCost = ingredientsConfig[currentIngredient].price;
         const quantity = this.state.ingredients[currentIngredient];
 
         return accumulator + unitCost * quantity;
@@ -41,12 +35,11 @@ class BurgerBuilder extends Component {
     return cost;
   }
 
-  get buildButtonStateByIngredient () {
+  get ingredientsState () {
     const buttonsState = Object.keys(this.state.ingredients).reduce(
       (accumulator, currentIngredient) => {
         accumulator[currentIngredient] = {
-          price: ingredientsCost[currentIngredient],
-          disabled: this.state.ingredients[currentIngredient] <= 0,
+          price: ingredientsConfig[currentIngredient].price,
           count: this.state.ingredients[currentIngredient],
         };
 
@@ -96,7 +89,7 @@ class BurgerBuilder extends Component {
           totalCost={this.totalCost}
         />
         <BuildControls
-          controlsState={this.buildButtonStateByIngredient}
+          ingredientsState={this.ingredientsState}
           onAddIngredient={this.handleAddIngredient}
           onRemoveIngredient={this.handleRemoveIngredient}
         />
@@ -105,12 +98,16 @@ class BurgerBuilder extends Component {
             onClose={this.handleCloseModal}
             title="Order details"
           >
-            <OrderDetails />
+            <OrderDetails
+              ingredientsState={this.ingredientsState}
+              totalCost={this.totalCost}
+            />
           </AppModal>
         )}
         <AppButton
           onClick={this.handleOpenModal}
           className={classes.CompleteOrderButton}
+          disabled={this.totalCost === 0}
         >
           Complete order
         </AppButton>

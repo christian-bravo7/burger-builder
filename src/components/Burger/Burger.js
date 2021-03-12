@@ -36,7 +36,7 @@ const Burger = ({ ingredients, totalCost }) => {
       <div className={classes.BurgerWrapper}>
         <div className={classes.BurgerContainer}>
           <BurgerIngredient ingredient="bread-top" />
-          {burgerIngredients}
+          {totalCost ? burgerIngredients : 'Add some ingredients'}
           <BurgerIngredient ingredient="bread-bottom" />
         </div>
         <div className={classes.BurgerPrice}>

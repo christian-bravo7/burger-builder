@@ -1,0 +1,55 @@
+.OrderDetails {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+
+  &__Description {
+    margin-bottom: 28px;
+    color: gray;
+  }
+
+  &__Item {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 50px 1fr 100px 100px;
+    margin-bottom: 16px;
+
+    &__Center {
+      text-align: center;
+    }
+
+    &__Header {
+      font-weight: bold;
+      margin-bottom: 32px;
+    }
+  }
+
+  &__Ingredient_Name {
+    text-transform: capitalize;
+  }
+
+  &__Item_Quantity {
+    text-align: center;
+  }
+
+  &__Item_Price {
+    text-align: right;
+  }
+
+  &__Confirm_Order_Wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__Total_Price_Container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__Total_Price {
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 12px;
+  }
+}

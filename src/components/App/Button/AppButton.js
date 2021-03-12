@@ -1,6 +1,6 @@
 import proptypes from 'prop-types';
 
-import classes from '@/components/App/Button/AppButton.module.css';
+import classes from '@/components/App/Button/AppButton.module.scss';
 
 const AppButton = ({ children, className, ...props }) => {
   return (

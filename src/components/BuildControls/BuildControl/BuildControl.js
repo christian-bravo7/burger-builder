@@ -2,8 +2,6 @@ import proptypes from 'prop-types';
 
 import classes from '@/components/BuildControls/BuildControl/BuildControl.module.css';
 
-import formatPrice from '@/utils/formatPrice';
-
 const BuildControl = ({
   label,
   price,
@@ -32,7 +30,7 @@ const BuildControl = ({
             +
           </button>
         </div>
-        <span className={classes.Price}>{formatPrice(price)}</span>
+        <span className={classes.Price}>{price}</span>
       </div>
     </div>
   );
@@ -40,7 +38,7 @@ const BuildControl = ({
 
 BuildControl.propTypes = {
   label: proptypes.string.isRequired,
-  price: proptypes.number.isRequired,
+  price: proptypes.string.isRequired,
   count: proptypes.number.isRequired,
   isRemoveButtonDisabled: proptypes.bool.isRequired,
   onAdd: proptypes.func.isRequired,
