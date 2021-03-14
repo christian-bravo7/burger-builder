@@ -8,7 +8,8 @@ import OrderDetails from '@/components/OrderDetails/OrderDetails';
 
 import { ingredientsConfig } from '@/utils/config';
 
-import classes from '@/components/containers/BurgerBuilder.module.css';
+import classes from '@/components/containers/BurgerBuilder.module.scss';
+
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
@@ -84,15 +85,17 @@ class BurgerBuilder extends Component {
   render () {
     return (
       <div className={classes.BurgerBuilder}>
-        <Burger
-          ingredients={this.state.ingredients}
-          totalCost={this.totalCost}
-        />
-        <BuildControls
-          ingredientsState={this.ingredientsState}
-          onAddIngredient={this.handleAddIngredient}
-          onRemoveIngredient={this.handleRemoveIngredient}
-        />
+        <div className={classes.BurgerBuilder__Content}>
+          <Burger
+            ingredients={this.state.ingredients}
+            totalCost={this.totalCost}
+          />
+          <BuildControls
+            ingredientsState={this.ingredientsState}
+            onAddIngredient={this.handleAddIngredient}
+            onRemoveIngredient={this.handleRemoveIngredient}
+          />
+        </div>
         {this.state.isOrderDetailsModalVisible && (
           <AppModal
             onClose={this.handleCloseModal}

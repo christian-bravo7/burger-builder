@@ -1,10 +1,11 @@
 import proptypes from 'prop-types';
 
-import classes from '@/components/BuildControls/BuildControl/BuildControl.module.css';
+import classes from '@/components/BuildControls/BuildControl/BuildControl.module.scss';
 
 const BuildControl = ({
   label,
-  price,
+  unitPrice,
+  totalPrice,
   count,
   isRemoveButtonDisabled,
   onAdd,
@@ -12,7 +13,12 @@ const BuildControl = ({
 }) => {
   return (
     <div className={classes.BuildControl}>
-      <p className={classes.Label}>{label}</p>
+      <p className={classes.BuildControl__Title}>
+        {label}
+        <span className={classes.BuildControl__UnitPrice}>
+          {unitPrice}
+        </span>
+      </p>
       <div className={classes.BuildControlWrapper}>
         <div className={classes.BuildControlGroup}>
           <button
@@ -30,15 +36,18 @@ const BuildControl = ({
             +
           </button>
         </div>
-        <span className={classes.Price}>{price}</span>
       </div>
+      <span className={classes.BuildControl__Total_Price}>
+        {totalPrice}
+      </span>
     </div>
   );
 };
 
 BuildControl.propTypes = {
   label: proptypes.string.isRequired,
-  price: proptypes.string.isRequired,
+  unitPrice: proptypes.string.isRequired,
+  totalPrice: proptypes.string.isRequired,
   count: proptypes.number.isRequired,
   isRemoveButtonDisabled: proptypes.bool.isRequired,
   onAdd: proptypes.func.isRequired,

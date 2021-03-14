@@ -1,12 +1,14 @@
 import React from 'react';
 import proptypes from 'prop-types';
 
-import classes from '@/layouts/MainLayout.module.css';
+import Navbar from '@/components/App/Navbar/Navbar';
+
+import classes from '@/layouts/MainLayout.module.scss';
 
 const MainLayout = ({ children }) => {
   return (
     <main className={classes.MainLayout}>
-      <nav>Navbar</nav>
+      <Navbar />
       <section className={classes.MainLayout__Content}>
         {children}
       </section>

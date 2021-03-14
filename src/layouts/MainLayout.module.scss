@@ -3,11 +3,12 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
-}
 
-.MainLayout__Navbar {
-}
+  &__Navbar {
+  }
 
-.MainLayout__Content {
-  flex: 1;
+  &__Content {
+    flex: 1;
+    padding: 16px;
+  }
 }

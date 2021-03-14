@@ -14,11 +14,17 @@ const BuildControls = ({
 }) => {
   const buildControls = Object.keys(ingredientsConfig).map(
     ingredient => {
+      const price = ingredientsConfig[ingredient].price;
+      const count = ingredientsState[ingredient].count;
+      const unitPrice = formatPrice(price);
+      const totalPrice = formatPrice(price * count);
+
       return {
+        count,
+        unitPrice,
         ingredient,
+        totalPrice,
         label: ingredientsConfig[ingredient].label,
-        price: formatPrice(ingredientsConfig[ingredient].price),
-        count: ingredientsState[ingredient].count,
         isRemoveButtonDisabled:
           ingredientsState[ingredient].count <= 0,
       };
@@ -29,14 +35,23 @@ const BuildControls = ({
     <div className={classes.BuildControls}>
       {buildControls.map(
         (
-          { label, ingredient, price, count, isRemoveButtonDisabled },
+          {
+            label,
+            ingredient,
+            price,
+            count,
+            isRemoveButtonDisabled,
+            unitPrice,
+            totalPrice,
+          },
           index
         ) => (
           <BuildControl
             key={index}
             label={label}
             count={count}
-            price={price}
+            unitPrice={unitPrice}
+            totalPrice={totalPrice}
             isRemoveButtonDisabled={isRemoveButtonDisabled}
             onAdd={() => {
               onAddIngredient(ingredient);

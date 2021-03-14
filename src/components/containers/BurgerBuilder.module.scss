@@ -4,6 +4,20 @@
   height: 100%;
   margin: 0 auto;
   justify-content: center;
+
+  &__Content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .BurgerBuilder {
+    &__Content {
+      flex-direction: column;
+    }
+  }
 }
 
 .CompleteOrderButton {

@@ -2,10 +2,11 @@ import React from 'react';
 import proptypes from 'prop-types';
 
 import BurgerIngredient from '@/components/BurgerIngredient/BurgerIngredient';
+import BurgerPrice from '@/components/Burger/BurgerPrice/BurgerPrice';
 
 import formatPrice from '@/utils/formatPrice';
 
-import classes from '@/components/Burger/Burger.module.css';
+import classes from '@/components/Burger/Burger.module.scss';
 
 const Burger = ({ ingredients, totalCost }) => {
   const burgerIngredients = Object.keys(ingredients)
@@ -39,14 +40,7 @@ const Burger = ({ ingredients, totalCost }) => {
           {totalCost ? burgerIngredients : 'Add some ingredients'}
           <BurgerIngredient ingredient="bread-bottom" />
         </div>
-        <div className={classes.BurgerPrice}>
-          <span className={classes.BurgerPrice__Label}>
-            Total cost:
-          </span>
-          <span className={classes.BurgerPrice__Cost}>
-            {formatPrice(totalCost)}
-          </span>
-        </div>
+        <BurgerPrice totalCost={formatPrice(totalCost)} />
       </div>
     </div>
   );

@@ -16,31 +16,6 @@
   font-size: 1.2rem;
 }
 
-.BurgerPrice {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 20px;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  padding: 8px 16px;
-  box-shadow: 0px 0px 13px -6px #8c8c8c;
-}
-
-.BurgerPrice__Label {
-  font-size: 14px;
-  color: rgb(83, 83, 83);
-  text-align: left;
-  margin-bottom: 8px;
-}
-
-.BurgerPrice__Cost {
-  font-size: 24px;
-  color: #ff1871;
-  margin-left: 8px;
-}
-
 @media (min-width: 500px) and (min-height: 400px) {
   .BurgerContainer {
     width: 350px;
