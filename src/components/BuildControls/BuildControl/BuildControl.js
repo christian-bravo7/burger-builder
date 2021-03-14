@@ -1,6 +1,6 @@
 import proptypes from 'prop-types';
 
-import ControlButton from '@/components/BuildControls/ControlButton/ControlButton';
+import ControlButtons from '@/components/BuildControls/ControlButtons/ControlButtons';
 
 import classes from '@/components/BuildControls/BuildControl/BuildControl.module.scss';
 
@@ -9,7 +9,8 @@ const BuildControl = ({
   unitPrice,
   totalPrice,
   count,
-  isRemoveButtonDisabled,
+  isRemoveDisabled,
+  isAddDisabled,
   onAdd,
   onRemove,
 }) => {
@@ -22,9 +23,10 @@ const BuildControl = ({
         </span>
       </p>
       <div className={classes.BuildControl__Buttons}>
-        <ControlButton
+        <ControlButtons
           count={count}
-          isRemoveButtonDisabled={isRemoveButtonDisabled}
+          isRemoveDisabled={isRemoveDisabled}
+          isAddDisabled={isAddDisabled}
           onAdd={onAdd}
           onRemove={onRemove}
         />
@@ -41,7 +43,8 @@ BuildControl.propTypes = {
   unitPrice: proptypes.string.isRequired,
   totalPrice: proptypes.string.isRequired,
   count: proptypes.number.isRequired,
-  isRemoveButtonDisabled: proptypes.bool.isRequired,
+  isRemoveDisabled: proptypes.bool.isRequired,
+  isAddDisabled: proptypes.bool.isRequired,
   onAdd: proptypes.func.isRequired,
   onRemove: proptypes.func.isRequired,
 };

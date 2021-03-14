@@ -14,19 +14,23 @@ const BuildControlList = ({
 }) => {
   const buildControls = Object.keys(ingredientsConfig).map(
     ingredient => {
+      const label = ingredientsConfig[ingredient].label;
       const price = ingredientsConfig[ingredient].price;
+      const maxItems = ingredientsConfig[ingredient].max;
       const count = ingredientsState[ingredient].count;
       const unitPrice = formatPrice(price);
       const totalPrice = formatPrice(price * count);
+      const isAddDisabled = maxItems <= count;
+      const isRemoveDisabled = count <= 0;
 
       return {
+        label,
         count,
         unitPrice,
         ingredient,
         totalPrice,
-        label: ingredientsConfig[ingredient].label,
-        isRemoveButtonDisabled:
-          ingredientsState[ingredient].count <= 0,
+        isRemoveDisabled,
+        isAddDisabled,
       };
     }
   );
@@ -38,11 +42,11 @@ const BuildControlList = ({
           {
             label,
             ingredient,
-            price,
             count,
-            isRemoveButtonDisabled,
+            isRemoveDisabled,
             unitPrice,
             totalPrice,
+            isAddDisabled,
           },
           index
         ) => (
@@ -52,7 +56,8 @@ const BuildControlList = ({
             count={count}
             unitPrice={unitPrice}
             totalPrice={totalPrice}
-            isRemoveButtonDisabled={isRemoveButtonDisabled}
+            isRemoveDisabled={isRemoveDisabled}
+            isAddDisabled={isAddDisabled}
             onAdd={() => {
               onAddIngredient(ingredient);
             }}
