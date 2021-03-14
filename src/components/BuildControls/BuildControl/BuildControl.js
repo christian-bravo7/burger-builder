@@ -1,5 +1,7 @@
 import proptypes from 'prop-types';
 
+import ControlButton from '@/components/BuildControls/ControlButton/ControlButton';
+
 import classes from '@/components/BuildControls/BuildControl/BuildControl.module.scss';
 
 const BuildControl = ({
@@ -19,23 +21,13 @@ const BuildControl = ({
           {unitPrice}
         </span>
       </p>
-      <div className={classes.BuildControlWrapper}>
-        <div className={classes.BuildControlGroup}>
-          <button
-            className={classes.BuildControlGroup__Item}
-            onClick={onRemove}
-            disabled={isRemoveButtonDisabled}
-          >
-            -
-          </button>
-          <span>{count}</span>
-          <button
-            className={classes.BuildControlGroup__Item}
-            onClick={onAdd}
-          >
-            +
-          </button>
-        </div>
+      <div className={classes.BuildControl__Buttons}>
+        <ControlButton
+          count={count}
+          isRemoveButtonDisabled={isRemoveButtonDisabled}
+          onAdd={onAdd}
+          onRemove={onRemove}
+        />
       </div>
       <span className={classes.BuildControl__Total_Price}>
         {totalPrice}

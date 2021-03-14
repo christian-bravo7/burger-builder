@@ -1,7 +1,7 @@
 import React from 'react';
 import proptypes from 'prop-types';
 
-import BurgerIngredient from '@/components/BurgerIngredient/BurgerIngredient';
+import BurgerIngredient from '@/components/Burger/BurgerIngredient/BurgerIngredient';
 import BurgerPrice from '@/components/Burger/BurgerPrice/BurgerPrice';
 
 import formatPrice from '@/utils/formatPrice';
@@ -35,10 +35,12 @@ const Burger = ({ ingredients, totalCost }) => {
   return (
     <div className={classes.Burger}>
       <div className={classes.BurgerWrapper}>
-        <div className={classes.BurgerContainer}>
-          <BurgerIngredient ingredient="bread-top" />
-          {totalCost ? burgerIngredients : 'Add some ingredients'}
-          <BurgerIngredient ingredient="bread-bottom" />
+        <div className={classes.BurgerContainerInside}>
+          <div className={classes.BurgerContainer}>
+            <BurgerIngredient ingredient="bread-top" />
+            {totalCost ? burgerIngredients : 'Add some ingredients'}
+            <BurgerIngredient ingredient="bread-bottom" />
+          </div>
         </div>
         <BurgerPrice totalCost={formatPrice(totalCost)} />
       </div>

@@ -3,8 +3,8 @@ import proptypes from 'prop-types';
 import { ingredientsConfig } from '@/utils/config';
 import formatPrice from '@/utils/formatPrice';
 
-import classes from '@/components/OrderDetails/OrderDetails.module.scss';
-import AppButton from '../App/Button/AppButton';
+import classes from '@/components/Order/OrderDetails/OrderDetails.module.scss';
+import AppButton from '@/components/App/Button/AppButton';
 
 const OrderDetails = ({ ingredientsState, totalCost }) => {
   const orderIngredients = Object.keys(ingredientsState)

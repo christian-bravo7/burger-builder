@@ -1,7 +1,7 @@
 import React from 'react';
 import proptypes from 'prop-types';
 
-import classes from '@/components/BurgerIngredient/BurgerIngredient.module.css';
+import classes from '@/components/Burger/BurgerIngredient/BurgerIngredient.module.scss';
 
 const BurgerIngredient = ({ ingredient }) => {
   const genericIngredientComponent = className => (

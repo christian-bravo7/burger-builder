@@ -3,7 +3,7 @@ import proptypes from 'prop-types';
 
 import Navbar from '@/components/App/Navbar/Navbar';
 
-import classes from '@/layouts/MainLayout.module.scss';
+import classes from '@/layouts/Main/MainLayout.module.scss';
 
 const MainLayout = ({ children }) => {
   return (

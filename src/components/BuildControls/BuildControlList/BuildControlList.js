@@ -5,9 +5,9 @@ import BuildControl from '@/components/BuildControls/BuildControl/BuildControl';
 import { ingredientsConfig } from '@/utils/config';
 import formatPrice from '@/utils/formatPrice';
 
-import classes from '@/components/BuildControls/BuildControls.module.scss';
+import classes from '@/components/BuildControls/BuildControlList/BuildControlList.module.scss';
 
-const BuildControls = ({
+const BuildControlList = ({
   onAddIngredient,
   onRemoveIngredient,
   ingredientsState,
@@ -66,10 +66,10 @@ const BuildControls = ({
   );
 };
 
-BuildControls.propTypes = {
+BuildControlList.propTypes = {
   onAddIngredient: proptypes.func.isRequired,
   onRemoveIngredient: proptypes.func.isRequired,
   ingredientsState: proptypes.object.isRequired,
 };
 
-export default BuildControls;
+export default BuildControlList;

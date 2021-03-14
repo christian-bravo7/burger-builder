@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import Burger from '@/components/Burger/Burger';
-import BuildControls from '@/components/BuildControls/BuildControls';
-import AppButton from '@/components/App/Button/AppButton';
 import AppModal from '@/components/App/Modal/AppModal';
-import OrderDetails from '@/components/OrderDetails/OrderDetails';
+import AppButton from '@/components/App/Button/AppButton';
+import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
+import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
 import { ingredientsConfig } from '@/utils/config';
 
-import classes from '@/components/containers/BurgerBuilder.module.scss';
+import classes from '@/containers/BurgerBuilder.module.scss';
 
 class BurgerBuilder extends Component {
   state = {
@@ -90,7 +90,7 @@ class BurgerBuilder extends Component {
             ingredients={this.state.ingredients}
             totalCost={this.totalCost}
           />
-          <BuildControls
+          <BuildControlList
             ingredientsState={this.ingredientsState}
             onAddIngredient={this.handleAddIngredient}
             onRemoveIngredient={this.handleRemoveIngredient}

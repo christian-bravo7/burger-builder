@@ -1,7 +1,8 @@
 import React from 'react';
 
-import MainLayout from '@/layouts/MainLayout';
-import BurgerBuilder from '@/components/containers/BurgerBuilder';
+import MainLayout from '@/layouts/Main/MainLayout';
+
+import BurgerBuilder from '@/containers/BurgerBuilder';
 
 const App = () => {
   return (
