@@ -1,10 +1,12 @@
 import proptypes from 'prop-types';
 
-import { ingredientsConfig } from '@/utils/config';
+import AppButton from '@/components/App/Button/AppButton';
+import OrderDetailsTable from '@/components/Order/OrderDetailsTable/OrderDetailsTable';
+
 import formatPrice from '@/utils/formatPrice';
+import { ingredientsConfig } from '@/utils/config';
 
 import classes from '@/components/Order/OrderDetails/OrderDetails.module.scss';
-import AppButton from '@/components/App/Button/AppButton';
 
 const OrderDetails = ({ ingredientsState, totalCost }) => {
   const orderIngredients = Object.keys(ingredientsState)
@@ -31,53 +33,20 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
           Here you will find the details of your order, check them
           well before completing your order
         </p>
-        <ul>
-          <li
-            className={`${classes.OrderDetails__Item} ${classes.OrderDetails__Item__Header} `}
-          >
-            <span className={classes.OrderDetails__Item__Center}>
-              QTY
-            </span>
-            <span className={classes.OrderDetails__Item__Center}>
-              Ingredient
-            </span>
-            <span className={classes.OrderDetails__Item__Center}>
-              Unit Price
-            </span>
-            <span className={classes.OrderDetails__Item__Center}>
-              Subtotal
-            </span>
-          </li>
-          {orderIngredients.map(
-            ({ label, count, unitPrice, totalPrice }, index) => (
-              <li className={classes.OrderDetails__Item} key={index}>
-                <span className={classes.OrderDetails__Item_Quantity}>
-                  {count}
-                </span>
-                <span
-                  className={classes.OrderDetails__Ingredient_Name}
-                >
-                  {label}
-                </span>
-                <span className={classes.OrderDetails__Item_Price}>
-                  {unitPrice}
-                </span>
-                <span className={classes.OrderDetails__Item_Price}>
-                  {totalPrice}
-                </span>
-              </li>
-            )
-          )}
-        </ul>
+        <OrderDetailsTable orderIngredients={orderIngredients} />
       </div>
-      <div className={classes.OrderDetails__Total_Price_Container}>
+      <div className={classes.OrderDetails__Footer}>
         <div>
           <AppButton>
             <div
-              className={classes.OrderDetails__Confirm_Order_Wrapper}
+              className={
+                classes.OrderDetails__ConfirmOrderButtonContent
+              }
             >
               <span>Confirm? </span>
-              <span className={classes.OrderDetails__Total_Price}>
+              <span
+                className={classes.OrderDetails__ConfirmOrderPrice}
+              >
                 {formattedTotalCost}
               </span>
             </div>
