@@ -25,3 +25,16 @@
     margin-left: 12px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .OrderDetails {
+    &__Description {
+      font-size: 14px;
+    }
+
+    &__ConfirmOrderPrice {
+      font-size: 18px;
+      margin-left: 12px;
+    }
+  }
+}

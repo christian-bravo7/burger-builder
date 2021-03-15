@@ -8,4 +8,20 @@
     display: flex;
     align-items: center;
   }
+
+  &__Menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Navbar {
+    &__Links {
+      display: none;
+    }
+
+    &__Menu {
+      display: block;
+    }
+  }
 }

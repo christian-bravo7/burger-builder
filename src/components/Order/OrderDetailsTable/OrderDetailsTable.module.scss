@@ -22,3 +22,17 @@
     margin-bottom: 32px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .OrderDetailsTable {
+    &__Item {
+      margin-bottom: 12px;
+      font-size: 14px;
+      grid-template-columns: 35px 1fr 70px 70px;
+    }
+
+    &__TableHeader {
+      margin-bottom: 26px;
+    }
+  }
+}

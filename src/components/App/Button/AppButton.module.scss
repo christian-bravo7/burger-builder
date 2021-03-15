@@ -24,3 +24,10 @@
     cursor: not-allowed;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .AppButton {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+}

@@ -4,24 +4,25 @@ import proptypes from 'prop-types';
 import AppBackdrop from '@/components/App/Backdrop/Backdrop';
 
 import classes from '@/components/App/Modal/AppModal.module.scss';
+import CloseButton from '../CloseButton/CloseButton';
 
 const AppModal = ({ children, title, onClose }) => {
   return (
     <div className={classes.AppModal}>
       <AppBackdrop onClick={onClose} />
       <div className={classes.AppModal__Card_Container}>
-        <div className={classes.AppModal__Card}>
-          <h3 className={classes.AppModal__Card_Title}>{title}</h3>
-          <div className={classes.AppModal__Card_Content}>
-            {children}
+        <div className={classes.AppModal__CardScrollContainer}>
+          <div className={classes.AppModal__Card}>
+            <h3 className={classes.AppModal__Card_Title}>{title}</h3>
+            <div className={classes.AppModal__Card_Content}>
+              {children}
+            </div>
           </div>
-          <button
-            className={classes.AppModal__Card_CloseButton}
-            onClick={onClose}
-          >
-            x
-          </button>
         </div>
+        <CloseButton
+          className={classes.AppModal__CloseButton}
+          onClick={onClose}
+        />
       </div>
     </div>
   );
