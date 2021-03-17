@@ -7,6 +7,7 @@ import formatPrice from '@/utils/formatPrice';
 import { ingredientsConfig } from '@/utils/config';
 
 import classes from '@/components/Order/OrderDetails/OrderDetails.module.scss';
+import createOrder from '@/api/createOrder';
 
 const OrderDetails = ({ ingredientsState, totalCost }) => {
   const orderIngredients = Object.keys(ingredientsState)
@@ -26,6 +27,17 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
 
   const formattedTotalCost = formatPrice(totalCost);
 
+  const createOrderHandler = async () => {
+    console.log(orderIngredients);
+    await createOrder({
+      customer: {
+        name: 'christian',
+      },
+      ingredients: orderIngredients,
+      price: totalCost,
+    });
+  };
+
   return (
     <div className={classes.OrderDetails}>
       <div>
@@ -37,7 +49,7 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
       </div>
       <div className={classes.OrderDetails__Footer}>
         <div>
-          <AppButton>
+          <AppButton onClick={createOrderHandler}>
             <div
               className={
                 classes.OrderDetails__ConfirmOrderButtonContent
