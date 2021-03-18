@@ -4,6 +4,7 @@ import Burger from '@/components/Burger/Burger';
 import AppModal from '@/components/App/Modal/AppModal';
 import AppButton from '@/components/App/Button/AppButton';
 import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
+import AppNotification from '@/components/App/Notification/Notification';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
 import { ingredientsConfig } from '@/utils/config';
@@ -104,16 +105,19 @@ class BurgerBuilder extends Component {
             <OrderDetails
               ingredientsState={this.ingredientsState}
               totalCost={this.totalCost}
+              onclose={this.handleCloseModal}
             />
           </AppModal>
         )}
-        <AppButton
-          onClick={this.handleOpenModal}
-          className={classes.CompleteOrderButton}
-          disabled={this.totalCost === 0}
-        >
-          Complete order
-        </AppButton>
+        <div className={classes.CompleteOrderButton}>
+          <AppButton
+            onClick={this.handleOpenModal}
+            disabled={this.totalCost === 0}
+          >
+            Complete order
+          </AppButton>
+        </div>
+        <AppNotification />
       </div>
     );
   }

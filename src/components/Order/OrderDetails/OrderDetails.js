@@ -1,15 +1,18 @@
+import { useState } from 'react';
 import proptypes from 'prop-types';
 
 import AppButton from '@/components/App/Button/AppButton';
 import OrderDetailsTable from '@/components/Order/OrderDetailsTable/OrderDetailsTable';
 
+import createOrder from '@/api/createOrder';
 import formatPrice from '@/utils/formatPrice';
 import { ingredientsConfig } from '@/utils/config';
 
 import classes from '@/components/Order/OrderDetails/OrderDetails.module.scss';
-import createOrder from '@/api/createOrder';
 
-const OrderDetails = ({ ingredientsState, totalCost }) => {
+const OrderDetails = ({ ingredientsState, totalCost, onclose }) => {
+  const [loading, setloading] = useState(false);
+
   const orderIngredients = Object.keys(ingredientsState)
     .filter(ingredient => ingredientsState[ingredient].count > 0)
     .map(ingredient => {
@@ -28,7 +31,7 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
   const formattedTotalCost = formatPrice(totalCost);
 
   const createOrderHandler = async () => {
-    console.log(orderIngredients);
+    setloading(true);
     await createOrder({
       customer: {
         name: 'christian',
@@ -36,6 +39,8 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
       ingredients: orderIngredients,
       price: totalCost,
     });
+    setloading(false);
+    onclose();
   };
 
   return (
@@ -49,7 +54,7 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
       </div>
       <div className={classes.OrderDetails__Footer}>
         <div>
-          <AppButton onClick={createOrderHandler}>
+          <AppButton isLoading={loading} onClick={createOrderHandler}>
             <div
               className={
                 classes.OrderDetails__ConfirmOrderButtonContent
@@ -72,6 +77,7 @@ const OrderDetails = ({ ingredientsState, totalCost }) => {
 OrderDetails.propTypes = {
   ingredientsState: proptypes.object,
   totalCost: proptypes.number.isRequired,
+  onclose: proptypes.func,
 };
 
 export default OrderDetails;
