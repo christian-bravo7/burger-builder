@@ -1,11 +1,10 @@
-import React from 'react';
 import proptypes from 'prop-types';
 
 import AppLogo from '@/components/App/Logo/Logo';
 import NavbarItem from '@/components/App/NavbarItem/NavbarItem';
+import MenuButton from '@/components/App/MenuButton/MenuButton';
 
 import classes from '@/components/App/Navbar/Navbar.module.scss';
-import MenuButton from '@/components/App/MenuButton/MenuButton';
 
 const Navbar = ({ onOpenSidebar }) => {
   return (

@@ -1,10 +1,9 @@
-import React from 'react';
 import proptypes from 'prop-types';
 
 import AppBackdrop from '@/components/App/Backdrop/Backdrop';
+import CloseButton from '@/components/App/CloseButton/CloseButton';
 
 import classes from '@/components/App/Modal/AppModal.module.scss';
-import CloseButton from '../CloseButton/CloseButton';
 
 const AppModal = ({ children, title, onClose }) => {
   return (

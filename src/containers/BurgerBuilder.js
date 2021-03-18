@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import Burger from '@/components/Burger/Burger';
 import AppModal from '@/components/App/Modal/AppModal';
 import AppButton from '@/components/App/Button/AppButton';
+import AppNotifications from '@/components/Notifications/Notifications';
 import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
-import AppNotification from '@/components/App/Notification/Notification';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
 import { ingredientsConfig } from '@/utils/config';
@@ -117,7 +117,7 @@ class BurgerBuilder extends Component {
             Complete order
           </AppButton>
         </div>
-        <AppNotification />
+        <AppNotifications />
       </div>
     );
   }

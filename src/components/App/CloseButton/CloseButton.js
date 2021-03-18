@@ -3,7 +3,7 @@ import proptypes from 'prop-types';
 import classes from '@/components/App/CloseButton/CloseButton.module.scss';
 
 const CloseButton = ({ onClick, className }) => {
-  const buttonClasses = `${classes.CloseButton} ${className || null}`;
+  const buttonClasses = `${classes.CloseButton} ${className || ''}`;
 
   return (
     <button className={buttonClasses} onClick={onClick}>

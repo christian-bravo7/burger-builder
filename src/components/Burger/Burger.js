@@ -1,36 +1,21 @@
-import React from 'react';
 import proptypes from 'prop-types';
 
 import BurgerIngredient from '@/components/Burger/BurgerIngredient/BurgerIngredient';
 import BurgerPrice from '@/components/Burger/BurgerPrice/BurgerPrice';
 
-import formatPrice from '@/utils/formatPrice';
-
 import classes from '@/components/Burger/Burger.module.scss';
 
 const Burger = ({ ingredients, totalCost }) => {
-  const burgerIngredients = Object.keys(ingredients)
-    .map(ingredient => {
-      const quantity = ingredients[ingredient];
-
-      const ingredientComponents = [
-        ...Array(quantity),
-      ].map((_, index) => (
+  const burgerIngredients = Object.entries(ingredients)
+    .map(([ingredient, quantity]) => {
+      return [...Array(quantity)].map((_, index) => (
         <BurgerIngredient
           key={`${ingredient}-${index}`}
           ingredient={ingredient}
         />
       ));
-
-      return ingredientComponents;
     })
-    .reduce(
-      (previousValue, currentValue) => [
-        ...previousValue,
-        ...currentValue,
-      ],
-      []
-    );
+    .flatMap(mappedIngredients => mappedIngredients);
 
   return (
     <div className={classes.Burger}>
@@ -42,7 +27,7 @@ const Burger = ({ ingredients, totalCost }) => {
             <BurgerIngredient ingredient="bread-bottom" />
           </div>
         </div>
-        <BurgerPrice totalCost={formatPrice(totalCost)} />
+        <BurgerPrice totalCost={totalCost} />
       </div>
     </div>
   );

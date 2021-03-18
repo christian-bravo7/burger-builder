@@ -8,9 +8,9 @@ import formatPrice from '@/utils/formatPrice';
 import classes from '@/components/BuildControls/BuildControlList/BuildControlList.module.scss';
 
 const BuildControlList = ({
+  ingredientsState,
   onAddIngredient,
   onRemoveIngredient,
-  ingredientsState,
 }) => {
   const buildControls = Object.keys(ingredientsConfig).map(
     ingredient => {
@@ -72,9 +72,9 @@ const BuildControlList = ({
 };
 
 BuildControlList.propTypes = {
+  ingredientsState: proptypes.object.isRequired,
   onAddIngredient: proptypes.func.isRequired,
   onRemoveIngredient: proptypes.func.isRequired,
-  ingredientsState: proptypes.object.isRequired,
 };
 
 export default BuildControlList;

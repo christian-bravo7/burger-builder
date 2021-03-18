@@ -1,4 +1,3 @@
-import React from 'react';
 import proptypes from 'prop-types';
 
 import classes from '@/components/Burger/BurgerIngredient/BurgerIngredient.module.scss';
@@ -8,7 +7,7 @@ const BurgerIngredient = ({ ingredient }) => {
     <div className={className}></div>
   );
 
-  const breadComponent = (
+  const breadTopComponent = (
     <div className={classes.BreadTop}>
       <div className={classes.Seeds1}></div>
       <div className={classes.Seeds2}></div>
@@ -16,7 +15,7 @@ const BurgerIngredient = ({ ingredient }) => {
   );
 
   const ingredients = {
-    'bread-top': breadComponent,
+    'bread-top': breadTopComponent,
     'bread-bottom': genericIngredientComponent(classes.BreadBottom),
     meat: genericIngredientComponent(classes.Meat),
     cheese: genericIngredientComponent(classes.Cheese),
@@ -30,5 +29,5 @@ const BurgerIngredient = ({ ingredient }) => {
 export default BurgerIngredient;
 
 BurgerIngredient.propTypes = {
-  ingredient: proptypes.string,
+  ingredient: proptypes.string.isRequired,
 };
