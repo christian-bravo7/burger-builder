@@ -46,7 +46,7 @@ class OrderDetails extends Component {
       price: this.props.totalCost,
     }).finally(() => {
       this.setState({ isLoading: false });
-      this.props.onclose();
+      this.props.onComplete();
     });
   };
 
@@ -91,7 +91,7 @@ class OrderDetails extends Component {
 OrderDetails.propTypes = {
   ingredientsState: proptypes.object,
   totalCost: proptypes.number.isRequired,
-  onclose: proptypes.func,
+  onComplete: proptypes.func,
 };
 
 export default OrderDetails;

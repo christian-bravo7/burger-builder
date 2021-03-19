@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import proptypes from 'prop-types';
 
 import Burger from '@/components/Burger/Burger';
-import AppModal from '@/components/App/Modal/AppModal';
 import AppButton from '@/components/App/Button/AppButton';
-import AppNotifications from '@/components/Notifications/Notifications';
 import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
@@ -20,7 +19,6 @@ class BurgerBuilder extends Component {
       cheese: 1,
     },
     totalCost: 0,
-    isOrderDetailsModalVisible: false,
   };
 
   get totalCost () {
@@ -75,12 +73,19 @@ class BurgerBuilder extends Component {
     );
   };
 
-  handleOpenModal = () => {
-    this.setState({ isOrderDetailsModalVisible: true });
-  };
+  handleOrderDetailsModal = () => {
+    const component = (
+      <OrderDetails
+        ingredientsState={this.ingredientsState}
+        totalCost={this.totalCost}
+        onComplete={this.props.modal.onModalClose}
+      />
+    );
 
-  handleCloseModal = () => {
-    this.setState({ isOrderDetailsModalVisible: false });
+    this.props.modal.onModalOpenWith({
+      component,
+      title: 'Order details',
+    });
   };
 
   render () {
@@ -97,30 +102,21 @@ class BurgerBuilder extends Component {
             onRemoveIngredient={this.handleRemoveIngredient}
           />
         </div>
-        {this.state.isOrderDetailsModalVisible && (
-          <AppModal
-            onClose={this.handleCloseModal}
-            title="Order details"
-          >
-            <OrderDetails
-              ingredientsState={this.ingredientsState}
-              totalCost={this.totalCost}
-              onclose={this.handleCloseModal}
-            />
-          </AppModal>
-        )}
         <div className={classes.CompleteOrderButton}>
           <AppButton
-            onClick={this.handleOpenModal}
+            onClick={this.handleOrderDetailsModal}
             disabled={this.totalCost === 0}
           >
             Complete order
           </AppButton>
         </div>
-        <AppNotifications />
       </div>
     );
   }
 }
+
+BurgerBuilder.propTypes = {
+  modal: proptypes.object.isRequired,
+};
 
 export default BurgerBuilder;

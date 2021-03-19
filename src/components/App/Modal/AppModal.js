@@ -5,7 +5,7 @@ import CloseButton from '@/components/App/CloseButton/CloseButton';
 
 import classes from '@/components/App/Modal/AppModal.module.scss';
 
-const AppModal = ({ children, title, onClose }) => {
+const AppModal = ({ component, title, onClose }) => {
   return (
     <div className={classes.AppModal}>
       <AppBackdrop onClick={onClose} />
@@ -14,7 +14,7 @@ const AppModal = ({ children, title, onClose }) => {
           <div className={classes.AppModal__Card}>
             <h3 className={classes.AppModal__Card_Title}>{title}</h3>
             <div className={classes.AppModal__Card_Content}>
-              {children}
+              {component}
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@ const AppModal = ({ children, title, onClose }) => {
 };
 
 AppModal.propTypes = {
-  children: proptypes.oneOfType([
+  component: proptypes.oneOfType([
     proptypes.element,
     proptypes.string,
   ]),
