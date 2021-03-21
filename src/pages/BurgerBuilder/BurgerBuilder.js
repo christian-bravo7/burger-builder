@@ -6,8 +6,8 @@ import AppButton from '@/components/App/Button/AppButton';
 import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
-import ingredientsConfig from '@/utils/config';
 import serializeQueryParams from '@/utils/serializeQueryParams';
+import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
 
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
 
@@ -23,17 +23,7 @@ class BurgerBuilder extends Component {
   };
 
   get totalCost () {
-    const cost = Object.keys(this.state.ingredients).reduce(
-      (accumulator, currentIngredient) => {
-        const unitCost = ingredientsConfig[currentIngredient].price;
-        const quantity = this.state.ingredients[currentIngredient];
-
-        return accumulator + unitCost * quantity;
-      },
-      0
-    );
-
-    return cost;
+    return getTotalPriceForIngredients(this.state.ingredients);
   }
 
   componentDidUpdate (_, prevState) {

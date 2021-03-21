@@ -2,6 +2,8 @@ import { Component } from 'react';
 import proptypes from 'prop-types';
 
 import deserializeQueryParams from '@/utils/deserializeQueryParams';
+import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
+
 import Burger from '@/components/Burger/Burger';
 
 class Checkout extends Component {
@@ -14,15 +16,24 @@ class Checkout extends Component {
     const queryParams = this.props.location.search;
 
     const deserializedParams = deserializeQueryParams(queryParams);
-    const ingredientParams = {};
+    const ingredients = {};
 
     Object.keys(deserializedParams).forEach(ingredient => {
-      ingredientParams[ingredient] = Number(
+      ingredients[ingredient] = Number(
         deserializedParams[ingredient]
       );
     });
 
-    this.setState({ ingredients: ingredientParams, totalCost: 10 });
+    const totalCost = getTotalPriceForIngredients(ingredients);
+
+    this.setState(() => ({
+      ingredients,
+      totalCost,
+    }));
+
+    if (!totalCost) {
+      this.props.history.replace('/');
+    }
   }
 
   render () {
@@ -40,6 +51,10 @@ class Checkout extends Component {
 Checkout.propTypes = {
   location: proptypes.shape({
     search: proptypes.string,
+  }),
+  history: proptypes.shape({
+    push: proptypes.func,
+    replace: proptypes.func,
   }),
 };
 

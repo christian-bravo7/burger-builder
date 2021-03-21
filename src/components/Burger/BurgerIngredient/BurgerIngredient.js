@@ -23,7 +23,7 @@ const BurgerIngredient = ({ ingredient }) => {
     bacon: genericIngredientComponent(classes.Bacon),
   };
 
-  return ingredients[ingredient];
+  return ingredients[ingredient] ?? null;
 };
 
 export default BurgerIngredient;
