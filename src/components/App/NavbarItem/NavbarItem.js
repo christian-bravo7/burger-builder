@@ -1,12 +1,13 @@
 import proptypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 import classes from '@/components/App/NavbarItem/NavbarItem.module.scss';
 
-const NavbarItem = ({ label, to }) => {
+const NavbarItem = ({ label, ...rest }) => {
   return (
-    <a className={classes.NavbarItem} href={to}>
+    <NavLink className={classes.NavbarItem} {...rest}>
       {label}
-    </a>
+    </NavLink>
   );
 };
 

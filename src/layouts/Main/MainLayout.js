@@ -35,7 +35,7 @@ class MainLayout extends Component {
 }
 
 MainLayout.propTypes = {
-  children: proptypes.element,
+  children: proptypes.oneOfType([proptypes.element, proptypes.array]),
 };
 
 export default MainLayout;

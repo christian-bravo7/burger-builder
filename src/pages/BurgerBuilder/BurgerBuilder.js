@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import proptypes from 'prop-types';
 
 import Burger from '@/components/Burger/Burger';
@@ -6,9 +6,10 @@ import AppButton from '@/components/App/Button/AppButton';
 import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
-import { ingredientsConfig } from '@/utils/config';
+import ingredientsConfig from '@/utils/config';
+import serializeQueryParams from '@/utils/serializeQueryParams';
 
-import classes from '@/containers/BurgerBuilder.module.scss';
+import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
 
 class BurgerBuilder extends Component {
   state = {
@@ -18,7 +19,7 @@ class BurgerBuilder extends Component {
       salad: 0,
       cheese: 1,
     },
-    totalCost: 0,
+    isLoadingOrder: false,
   };
 
   get totalCost () {
@@ -35,20 +36,13 @@ class BurgerBuilder extends Component {
     return cost;
   }
 
-  get ingredientsState () {
-    const buttonsState = Object.keys(this.state.ingredients).reduce(
-      (accumulator, currentIngredient) => {
-        accumulator[currentIngredient] = {
-          price: ingredientsConfig[currentIngredient].price,
-          count: this.state.ingredients[currentIngredient],
-        };
-
-        return accumulator;
-      },
-      {}
-    );
-
-    return buttonsState;
+  componentDidUpdate (_, prevState) {
+    if (
+      (this.state.isLoadingOrder && !prevState.isLoadingOrder) ||
+      (!this.state.isLoadingOrder && prevState.isLoadingOrder)
+    ) {
+      this.handleOrderDetailsModal();
+    }
   }
 
   handleIngredientState = (ingredient, callback) => {
@@ -73,12 +67,24 @@ class BurgerBuilder extends Component {
     );
   };
 
+  handleConfirmOrder = () => {
+    this.props.modal.onModalClose();
+
+    const queryParams = serializeQueryParams(this.state.ingredients);
+
+    this.props.history.push({
+      pathname: '/checkout',
+      search: queryParams,
+    });
+  };
+
   handleOrderDetailsModal = () => {
     const component = (
       <OrderDetails
-        ingredientsState={this.ingredientsState}
+        isLoading={this.state.isLoadingOrder}
+        ingredientsState={this.state.ingredients}
         totalCost={this.totalCost}
-        onComplete={this.props.modal.onModalClose}
+        onComplete={this.handleConfirmOrder}
       />
     );
 
@@ -97,7 +103,7 @@ class BurgerBuilder extends Component {
             totalCost={this.totalCost}
           />
           <BuildControlList
-            ingredientsState={this.ingredientsState}
+            ingredientsState={this.state.ingredients}
             onAddIngredient={this.handleAddIngredient}
             onRemoveIngredient={this.handleRemoveIngredient}
           />
@@ -117,6 +123,9 @@ class BurgerBuilder extends Component {
 
 BurgerBuilder.propTypes = {
   modal: proptypes.object.isRequired,
+  history: proptypes.shape({
+    push: proptypes.func,
+  }),
 };
 
 export default BurgerBuilder;

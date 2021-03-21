@@ -1,4 +1,4 @@
-export const ingredientsConfig = {
+const ingredientsConfig = {
   bacon: {
     price: 20,
     label: 'Bacon',
@@ -20,3 +20,5 @@ export const ingredientsConfig = {
     max: 5,
   },
 };
+
+export default ingredientsConfig;

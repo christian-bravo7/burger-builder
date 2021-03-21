@@ -2,7 +2,7 @@ import proptypes from 'prop-types';
 
 import BuildControl from '@/components/BuildControls/BuildControl/BuildControl';
 
-import { ingredientsConfig } from '@/utils/config';
+import ingredientsConfig from '@/utils/config';
 import formatPrice from '@/utils/formatPrice';
 
 import classes from '@/components/BuildControls/BuildControlList/BuildControlList.module.scss';
@@ -17,7 +17,7 @@ const BuildControlList = ({
       const label = ingredientsConfig[ingredient].label;
       const price = ingredientsConfig[ingredient].price;
       const maxItems = ingredientsConfig[ingredient].max;
-      const count = ingredientsState[ingredient].count;
+      const count = ingredientsState[ingredient];
       const unitPrice = formatPrice(price);
       const totalPrice = formatPrice(price * count);
       const isAddDisabled = maxItems <= count;

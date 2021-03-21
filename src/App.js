@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import { Route } from 'react-router-dom';
 
 import MainLayout from '@/layouts/Main/MainLayout';
 
+import Orders from '@/pages/Orders/Orders';
+import Checkout from '@/pages/Checkout/Checkout';
+import BurgerBuilder from '@/pages/BurgerBuilder/BurgerBuilder';
+
 import Aux from '@/components/App/Aux/Aux';
 import AppModal from '@/components/App/Modal/AppModal';
-import BurgerBuilder from '@/containers/BurgerBuilder';
 import AppNotifications from '@/components/Notifications/Notifications';
 
 class App extends Component {
@@ -14,7 +18,6 @@ class App extends Component {
       isActive: false,
       title: '',
     },
-    notifications: [],
   };
 
   handleModalConfig = ({ component, title }) => {
@@ -53,16 +56,27 @@ class App extends Component {
     });
   };
 
+  BurgerBuilderComponent = props => (
+    <BurgerBuilder
+      {...props}
+      modal={{
+        onModalClose: this.handleModalClose,
+        onModalOpenWith: this.handleModalOpenWith,
+      }}
+    />
+  );
+
   render () {
     return (
       <Aux>
         <MainLayout>
-          <BurgerBuilder
-            modal={{
-              onModalClose: this.handleModalClose,
-              onModalOpenWith: this.handleModalOpenWith,
-            }}
+          <Route
+            path="/"
+            exact={true}
+            component={this.BurgerBuilderComponent}
           />
+          <Route exact={true} path="/checkout" component={Checkout} />
+          <Route exact={true} path="/orders" component={Orders} />
         </MainLayout>
         {this.state.modal.isActive && (
           <AppModal

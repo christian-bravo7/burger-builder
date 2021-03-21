@@ -12,7 +12,7 @@ const Navbar = ({ onOpenSidebar }) => {
       <AppLogo />
       <div className={classes.Navbar__Links}>
         <NavbarItem to="/" label="Burger Builder" />
-        <NavbarItem to="/" label="Checkout" />
+        <NavbarItem to="/checkout" label="Checkout" />
       </div>
       <div className={classes.Navbar__Menu}>
         <MenuButton onClick={onOpenSidebar} />
