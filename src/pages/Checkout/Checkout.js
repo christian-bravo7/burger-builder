@@ -38,6 +38,10 @@ class Checkout extends Component {
 
     const ingredients = this.state.ingredients;
     await createOrder({ ingredients, customerInformation });
+    this.props.notifications.onSetNotification(
+      'success',
+      'Order created successfully'
+    );
 
     this.setState({ isLoadingOrder: false });
   };
@@ -64,6 +68,9 @@ Checkout.propTypes = {
   history: proptypes.shape({
     push: proptypes.func,
     replace: proptypes.func,
+  }),
+  notifications: proptypes.shape({
+    onSetNotification: proptypes.func,
   }),
 };
 

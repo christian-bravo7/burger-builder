@@ -1,0 +1,12 @@
+.OrderCardButton {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-color: #eeeeee;
+  cursor: pointer;
+  border: 1px solid #d4d4d4;
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -18,18 +18,7 @@ class App extends Component {
       isActive: false,
       title: '',
     },
-  };
-
-  handleModalConfig = ({ component, title }) => {
-    this.setState(state => {
-      const modal = { ...state.modal };
-      modal.component = component;
-      modal.title = title;
-
-      return {
-        modal,
-      };
-    });
+    notifications: [],
   };
 
   handleModalClose = () => {
@@ -56,12 +45,63 @@ class App extends Component {
     });
   };
 
+  handleAddNotification = notification => {
+    this.setState(state => {
+      const notifications = [...state.notifications];
+      notifications.push(notification);
+
+      return {
+        notifications,
+      };
+    });
+  };
+
+  handleDeleteNotification = id => {
+    this.setState(state => {
+      const notifications = state.notifications.filter(
+        notification => {
+          clearTimeout(notification.timeoutId);
+          return notification.id !== id;
+        }
+      );
+
+      return {
+        notifications,
+      };
+    });
+  };
+
+  handleSetNotification = (type, message) => {
+    const notification = { type, message };
+    const notificationId = Date.now();
+    const timeoutId = setTimeout(
+      this.handleDeleteNotification,
+      5000,
+      notificationId
+    );
+
+    notification.id = notificationId;
+    notification.timeoutId = timeoutId;
+
+    this.handleAddNotification(notification);
+  };
+
   BurgerBuilderComponent = props => (
     <BurgerBuilder
       {...props}
       modal={{
         onModalClose: this.handleModalClose,
         onModalOpenWith: this.handleModalOpenWith,
+      }}
+    />
+  );
+
+  CheckoutComponent = props => (
+    <Checkout
+      {...props}
+      notifications={{
+        onSetNotification: this.handleSetNotification,
+        onDeleteNotification: this.handleDeleteNotification,
       }}
     />
   );
@@ -75,7 +115,11 @@ class App extends Component {
             exact={true}
             component={this.BurgerBuilderComponent}
           />
-          <Route exact={true} path="/checkout" component={Checkout} />
+          <Route
+            exact={true}
+            path="/checkout"
+            component={this.CheckoutComponent}
+          />
           <Route exact={true} path="/orders" component={Orders} />
         </MainLayout>
         {this.state.modal.isActive && (
@@ -85,7 +129,11 @@ class App extends Component {
             component={this.state.modal.component}
           />
         )}
-        <AppNotifications />
+        <AppNotifications
+          notifications={this.state.notifications}
+          onSetNotification={this.handleSetNotification}
+          onDeleteNotification={this.handleDeleteNotification}
+        />
       </Aux>
     );
   }

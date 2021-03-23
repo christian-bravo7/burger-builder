@@ -1,0 +1,61 @@
+.OrderCard {
+  border-radius: 20px;
+  background-color: #f9f9f9;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+
+  &__MainSide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__ControlsContainer {
+    display: flex;
+  }
+
+  &__Controls {
+    padding: 8px;
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
+  }
+
+  &__Name {
+    position: relative;
+    padding: 16px 8px;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.486);
+    color: white;
+  }
+
+  &__BurgerContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__Ingredients {
+    display: none;
+  }
+
+  &__CustomerInfo {
+    display: none;
+  }
+}
