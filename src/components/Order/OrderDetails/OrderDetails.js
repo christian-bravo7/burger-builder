@@ -5,12 +5,12 @@ import OrderDetailsTable from '@/components/Order/OrderDetailsTable/OrderDetails
 
 import formatPrice from '@/utils/formatPrice';
 import ingredientsConfig from '@/utils/config';
+import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
 
 import classes from '@/components/Order/OrderDetails/OrderDetails.module.scss';
 
 const OrderDetails = ({
   ingredientsState,
-  totalCost,
   isLoading,
   onComplete,
 }) => {
@@ -31,6 +31,7 @@ const OrderDetails = ({
       });
   };
 
+  const totalCost = getTotalPriceForIngredients(ingredientsState);
   const orderIngredients = transformOrderIngredients();
 
   return (
@@ -66,7 +67,6 @@ const OrderDetails = ({
 
 OrderDetails.propTypes = {
   ingredientsState: proptypes.object,
-  totalCost: proptypes.number.isRequired,
   onComplete: proptypes.func,
   isLoading: proptypes.bool.isRequired,
 };

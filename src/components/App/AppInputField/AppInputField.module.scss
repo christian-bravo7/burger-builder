@@ -1,0 +1,31 @@
+.AppInputField {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+
+  &__Label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  &__Input {
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid #dadada;
+    transition-property: box-shadow;
+    transition-duration: 300ms;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0px 0px 0px 2px #ff1871;
+    }
+  }
+}

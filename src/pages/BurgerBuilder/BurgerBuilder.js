@@ -7,7 +7,6 @@ import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
 import serializeQueryParams from '@/utils/serializeQueryParams';
-import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
 
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
 
@@ -22,11 +21,16 @@ class BurgerBuilder extends Component {
     isLoadingOrder: false,
   };
 
-  get totalCost () {
-    return getTotalPriceForIngredients(this.state.ingredients);
+  get isCompleteOrderButtonDisabled () {
+    const areAddedIngredients = Object.values(
+      this.state.ingredients
+    ).every(ingredientCount => ingredientCount === 0);
+
+    return areAddedIngredients;
   }
 
   componentDidUpdate (_, prevState) {
+    // Workaround to update modal component when it is active, should be removed when redux is implemented
     if (
       (this.state.isLoadingOrder && !prevState.isLoadingOrder) ||
       (!this.state.isLoadingOrder && prevState.isLoadingOrder)
@@ -73,7 +77,6 @@ class BurgerBuilder extends Component {
       <OrderDetails
         isLoading={this.state.isLoadingOrder}
         ingredientsState={this.state.ingredients}
-        totalCost={this.totalCost}
         onComplete={this.handleConfirmOrder}
       />
     );
@@ -88,10 +91,7 @@ class BurgerBuilder extends Component {
     return (
       <div className={classes.BurgerBuilder}>
         <div className={classes.BurgerBuilder__Content}>
-          <Burger
-            ingredients={this.state.ingredients}
-            totalCost={this.totalCost}
-          />
+          <Burger ingredients={this.state.ingredients} />
           <BuildControlList
             ingredientsState={this.state.ingredients}
             onAddIngredient={this.handleAddIngredient}
@@ -101,7 +101,7 @@ class BurgerBuilder extends Component {
         <div className={classes.CompleteOrderButton}>
           <AppButton
             onClick={this.handleOrderDetailsModal}
-            disabled={this.totalCost === 0}
+            disabled={this.isCompleteOrderButtonDisabled}
           >
             Complete order
           </AppButton>

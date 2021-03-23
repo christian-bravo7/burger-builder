@@ -3,9 +3,11 @@ import proptypes from 'prop-types';
 import BurgerIngredient from '@/components/Burger/BurgerIngredient/BurgerIngredient';
 import BurgerPrice from '@/components/Burger/BurgerPrice/BurgerPrice';
 
+import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
+
 import classes from '@/components/Burger/Burger.module.scss';
 
-const Burger = ({ ingredients, totalCost }) => {
+const Burger = ({ ingredients }) => {
   const burgerIngredients = Object.entries(ingredients)
     .map(([ingredient, quantity]) => {
       return [...Array(quantity)].map((_, index) => (
@@ -16,6 +18,8 @@ const Burger = ({ ingredients, totalCost }) => {
       ));
     })
     .flatMap(mappedIngredients => mappedIngredients);
+
+  const totalCost = getTotalPriceForIngredients(ingredients);
 
   return (
     <div className={classes.Burger}>
@@ -35,7 +39,6 @@ const Burger = ({ ingredients, totalCost }) => {
 
 Burger.propTypes = {
   ingredients: proptypes.object,
-  totalCost: proptypes.number.isRequired,
 };
 
 export default Burger;

@@ -1,7 +1,7 @@
 import { axiosClient } from '@/utils/axios';
 
 const getOrders = async () => {
-  const { data } = await axiosClient.get('/orders');
+  const { data } = await axiosClient.get('/orders.json');
 
   console.log(data);
 };

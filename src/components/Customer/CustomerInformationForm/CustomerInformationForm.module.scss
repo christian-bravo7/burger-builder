@@ -1,0 +1,13 @@
+.CustomerInformationForm {
+  max-width: 640px;
+  margin: 0 auto;
+
+  &__Fields {
+    margin-bottom: 24px;
+  }
+
+  &__ButtonContainer {
+    display: flex;
+    justify-content: center;
+  }
+}

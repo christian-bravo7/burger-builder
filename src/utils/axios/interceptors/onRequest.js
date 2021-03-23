@@ -6,4 +6,6 @@ export const onRequestSuccess = response => {
 
 export const onRequestError = error => {
   console.log(error);
+
+  throw error;
 };

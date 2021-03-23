@@ -5,43 +5,52 @@ import deserializeQueryParams from '@/utils/deserializeQueryParams';
 import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
 
 import Burger from '@/components/Burger/Burger';
+import CustomerInformationForm from '@/components/Customer/CustomerInformationForm/CustomerInformationForm';
+
+import classes from '@/pages/Checkout/Checkout.module.scss';
+import createOrder from '@/api/createOrder';
 
 class Checkout extends Component {
   state = {
     ingredients: {},
-    totalCost: 0,
+    isLoadingOrder: false,
   };
 
   componentDidMount () {
+    this.handleQueryParams();
+  }
+
+  handleQueryParams = () => {
     const queryParams = this.props.location.search;
 
-    const deserializedParams = deserializeQueryParams(queryParams);
-    const ingredients = {};
-
-    Object.keys(deserializedParams).forEach(ingredient => {
-      ingredients[ingredient] = Number(
-        deserializedParams[ingredient]
-      );
-    });
-
+    const ingredients = deserializeQueryParams(queryParams);
     const totalCost = getTotalPriceForIngredients(ingredients);
-
-    this.setState(() => ({
-      ingredients,
-      totalCost,
-    }));
 
     if (!totalCost) {
       this.props.history.replace('/');
     }
-  }
+
+    this.setState({ ingredients });
+  };
+
+  handleSubmitOrder = async customerInformation => {
+    this.setState({ isLoadingOrder: true });
+
+    const ingredients = this.state.ingredients;
+    await createOrder({ ingredients, customerInformation });
+
+    this.setState({ isLoadingOrder: false });
+  };
 
   render () {
     return (
       <div>
-        <Burger
-          ingredients={this.state.ingredients}
-          totalCost={this.state.totalCost}
+        <div className={classes.Checkout__BurgerContainer}>
+          <Burger ingredients={this.state.ingredients} />
+        </div>
+        <CustomerInformationForm
+          isLoadingOrder={this.state.isLoadingOrder}
+          onSubmit={this.handleSubmitOrder}
         />
       </div>
     );
