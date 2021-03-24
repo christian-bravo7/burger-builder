@@ -51,7 +51,7 @@ class CustomerInformationForm extends Component {
           <AppInputField
             value={this.state.customerInformation.name}
             onChange={this.handleInputChange}
-            isRequired={true}
+            rules={{ isRequired: true }}
             type="text"
             label="Name"
             id="customerName"
@@ -59,7 +59,7 @@ class CustomerInformationForm extends Component {
           <AppInputField
             value={this.state.customerInformation.address}
             onChange={this.handleInputChange}
-            isRequired={true}
+            rules={{ isRequired: true }}
             type="text"
             label="Address"
             id="customerAddress"
@@ -67,7 +67,7 @@ class CustomerInformationForm extends Component {
           <AppInputField
             value={this.state.customerInformation.email}
             onChange={this.handleInputChange}
-            isRequired={true}
+            rules={{ isRequired: true }}
             type="email"
             label="Email"
             id="customerEmail"
