@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import proptypes from 'prop-types';
 
+import createOrder from '@/api/createOrder';
+
 import deserializeQueryParams from '@/utils/deserializeQueryParams';
 import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
 
@@ -8,7 +10,6 @@ import Burger from '@/components/Burger/Burger';
 import CustomerInformationForm from '@/components/Customer/CustomerInformationForm/CustomerInformationForm';
 
 import classes from '@/pages/Checkout/Checkout.module.scss';
-import createOrder from '@/api/createOrder';
 
 class Checkout extends Component {
   state = {
@@ -38,7 +39,7 @@ class Checkout extends Component {
 
     const ingredients = this.state.ingredients;
     await createOrder({ ingredients, customerInformation });
-    this.props.notifications.onSetNotification(
+    this.props.onSetNotification(
       'success',
       'Order created successfully'
     );
@@ -69,9 +70,7 @@ Checkout.propTypes = {
     push: proptypes.func,
     replace: proptypes.func,
   }),
-  notifications: proptypes.shape({
-    onSetNotification: proptypes.func,
-  }),
+  onSetNotification: proptypes.func,
 };
 
 export default Checkout;

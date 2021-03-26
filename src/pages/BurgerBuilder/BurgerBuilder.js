@@ -9,6 +9,11 @@ import BuildControlList from '@/components/BuildControls/BuildControlList/BuildC
 import serializeQueryParams from '@/utils/serializeQueryParams';
 
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
+import { connect } from 'react-redux';
+import {
+  DISPLAY_MODAL_WITH_COMPONENT,
+  HIDDE_MODAL,
+} from '@/store/actions/modal';
 
 class BurgerBuilder extends Component {
   state = {
@@ -62,7 +67,7 @@ class BurgerBuilder extends Component {
   };
 
   handleConfirmOrder = () => {
-    this.props.modal.onModalClose();
+    this.props.hiddeModal();
 
     const queryParams = serializeQueryParams(this.state.ingredients);
 
@@ -81,7 +86,7 @@ class BurgerBuilder extends Component {
       />
     );
 
-    this.props.modal.onModalOpenWith({
+    this.props.displayModalWithComponent({
       component,
       title: 'Order details',
     });
@@ -112,10 +117,23 @@ class BurgerBuilder extends Component {
 }
 
 BurgerBuilder.propTypes = {
-  modal: proptypes.object.isRequired,
   history: proptypes.shape({
     push: proptypes.func,
   }),
+  displayModalWithComponent: proptypes.func,
+  hiddeModal: proptypes.func,
 };
 
-export default BurgerBuilder;
+const mapActionsToProps = dispatch => {
+  return {
+    displayModalWithComponent: ({ component, title }) => {
+      dispatch({
+        type: DISPLAY_MODAL_WITH_COMPONENT,
+        payload: { component, title },
+      });
+    },
+    hiddeModal: () => dispatch({ type: HIDDE_MODAL }),
+  };
+};
+
+export default connect(null, mapActionsToProps)(BurgerBuilder);

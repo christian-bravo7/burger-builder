@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import proptypes from 'prop-types';
 
 import MainLayout from '@/layouts/Main/MainLayout';
 
@@ -11,71 +13,21 @@ import Aux from '@/components/App/Aux/Aux';
 import AppModal from '@/components/App/Modal/AppModal';
 import AppNotifications from '@/components/Notifications/Notifications';
 
+import {
+  DISPLAY_MODAL_WITH_COMPONENT,
+  HIDDE_MODAL,
+} from '@/store/actions/modal';
+import {
+  ADD_NOTIFICATION,
+  DELETE_NOTIFICATION,
+} from './store/actions/notifications';
+
 class App extends Component {
-  state = {
-    modal: {
-      component: null,
-      isActive: false,
-      title: '',
-    },
-    notifications: [],
-  };
-
-  handleModalClose = () => {
-    this.setState(state => {
-      const modal = { ...state.modal };
-      modal.isActive = false;
-
-      return {
-        modal,
-      };
-    });
-  };
-
-  handleModalOpenWith = ({ component, title }) => {
-    this.setState(state => {
-      const modal = { ...state.modal };
-      modal.component = component;
-      modal.title = title;
-      modal.isActive = true;
-
-      return {
-        modal,
-      };
-    });
-  };
-
-  handleAddNotification = notification => {
-    this.setState(state => {
-      const notifications = [...state.notifications];
-      notifications.push(notification);
-
-      return {
-        notifications,
-      };
-    });
-  };
-
-  handleDeleteNotification = id => {
-    this.setState(state => {
-      const notifications = state.notifications.filter(
-        notification => {
-          clearTimeout(notification.timeoutId);
-          return notification.id !== id;
-        }
-      );
-
-      return {
-        notifications,
-      };
-    });
-  };
-
   handleSetNotification = (type, message) => {
     const notification = { type, message };
     const notificationId = Date.now();
     const timeoutId = setTimeout(
-      this.handleDeleteNotification,
+      this.props.onDeleteNotification,
       5000,
       notificationId
     );
@@ -83,60 +35,74 @@ class App extends Component {
     notification.id = notificationId;
     notification.timeoutId = timeoutId;
 
-    this.handleAddNotification(notification);
+    this.props.onAddNotification(notification);
   };
-
-  BurgerBuilderComponent = props => (
-    <BurgerBuilder
-      {...props}
-      modal={{
-        onModalClose: this.handleModalClose,
-        onModalOpenWith: this.handleModalOpenWith,
-      }}
-    />
-  );
-
-  CheckoutComponent = props => (
-    <Checkout
-      {...props}
-      notifications={{
-        onSetNotification: this.handleSetNotification,
-        onDeleteNotification: this.handleDeleteNotification,
-      }}
-    />
-  );
 
   render () {
     return (
       <Aux>
         <MainLayout>
-          <Route
-            path="/"
-            exact={true}
-            component={this.BurgerBuilderComponent}
-          />
+          <Route path="/" exact={true} component={BurgerBuilder} />
           <Route
             exact={true}
             path="/checkout"
-            component={this.CheckoutComponent}
+            render={props => {
+              return (
+                <Checkout
+                  {...props}
+                  onSetNotification={this.handleSetNotification}
+                />
+              );
+            }}
           />
           <Route exact={true} path="/orders" component={Orders} />
         </MainLayout>
-        {this.state.modal.isActive && (
-          <AppModal
-            onClose={this.handleModalClose}
-            title={this.state.modal.title}
-            component={this.state.modal.component}
-          />
-        )}
+        {this.props.isModalActive && <AppModal />}
         <AppNotifications
-          notifications={this.state.notifications}
           onSetNotification={this.handleSetNotification}
-          onDeleteNotification={this.handleDeleteNotification}
         />
       </Aux>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  isModalActive: proptypes.bool,
+  modalComponent: proptypes.element,
+  modalTitle: proptypes.string,
+  displayModalWithComponent: proptypes.func,
+  hiddeModal: proptypes.func,
+  onDeleteNotification: proptypes.func,
+  onAddNotification: proptypes.func,
+};
+
+const mapStateToProps = state => {
+  return {
+    isModalActive: state.modal.isActive,
+    modalComponent: state.modal.component,
+    modalTitle: state.modal.title,
+  };
+};
+
+const mapActionsToProps = dispatch => {
+  return {
+    displayModalWithComponent: ({ component, title }) => {
+      dispatch({
+        type: DISPLAY_MODAL_WITH_COMPONENT,
+        payload: { component, title },
+      });
+    },
+    hiddeModal: () => dispatch({ type: HIDDE_MODAL }),
+    onAddNotification: notification => {
+      dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
+    },
+    onDeleteNotification: notificationId => {
+      dispatch({
+        type: DELETE_NOTIFICATION,
+        payload: { notificationId },
+      });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(App);

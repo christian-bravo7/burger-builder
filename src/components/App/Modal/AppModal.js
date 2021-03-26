@@ -1,9 +1,12 @@
 import proptypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import AppBackdrop from '@/components/App/Backdrop/Backdrop';
 import CloseButton from '@/components/App/CloseButton/CloseButton';
 
 import classes from '@/components/App/Modal/AppModal.module.scss';
+
+import { HIDDE_MODAL } from '@/store/actions/modal';
 
 const AppModal = ({ component, title, onClose }) => {
   return (
@@ -36,4 +39,19 @@ AppModal.propTypes = {
   onClose: proptypes.func.isRequired,
 };
 
-export default AppModal;
+const mapStateToProps = state => {
+  return {
+    component: state.modal.component,
+    title: state.modal.title,
+  };
+};
+
+const mapActionsToProps = dispatch => {
+  return {
+    onClose: () => {
+      dispatch({ type: HIDDE_MODAL });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(AppModal);

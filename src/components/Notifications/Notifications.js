@@ -6,6 +6,8 @@ import { axiosClient } from '@/utils/axios';
 import AppNotification from '@/components/Notifications/Notification/Notification';
 
 import classes from '@/components/Notifications/Notifications.module.scss';
+import { DELETE_NOTIFICATION } from '@/store/actions/notifications';
+import { connect } from 'react-redux';
 
 const messages = {
   'create-order-success': 'Your order has been created successfully',
@@ -58,4 +60,24 @@ AppNotifications.propTypes = {
   onDeleteNotification: proptypes.func.isRequired,
 };
 
-export default AppNotifications;
+const mapStateToProps = state => {
+  return {
+    notifications: state.notifications.notifications,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeleteNotification: notificationId => {
+      dispatch({
+        type: DELETE_NOTIFICATION,
+        payload: { notificationId },
+      });
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppNotifications);
