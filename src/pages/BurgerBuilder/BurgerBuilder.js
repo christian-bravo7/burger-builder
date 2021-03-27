@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import proptypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Burger from '@/components/Burger/Burger';
 import AppButton from '@/components/App/Button/AppButton';
@@ -9,7 +10,6 @@ import BuildControlList from '@/components/BuildControls/BuildControlList/BuildC
 import serializeQueryParams from '@/utils/serializeQueryParams';
 
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
-import { connect } from 'react-redux';
 import {
   DISPLAY_MODAL_WITH_COMPONENT,
   HIDDE_MODAL,
