@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import proptypes from 'prop-types';
 
 import Burger from '@/components/Burger/Burger';
 import AppButton from '@/components/App/Button/AppButton';
@@ -9,11 +10,9 @@ import BuildControlList from '@/components/BuildControls/BuildControlList/BuildC
 
 import serializeQueryParams from '@/utils/serializeQueryParams';
 
+import modalActionCreators from '@/store/actionCreators/modal';
+
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
-import {
-  DISPLAY_MODAL_WITH_COMPONENT,
-  HIDDE_MODAL,
-} from '@/store/actions/modal';
 
 class BurgerBuilder extends Component {
   state = {
@@ -124,16 +123,8 @@ BurgerBuilder.propTypes = {
   hiddeModal: proptypes.func,
 };
 
-const mapActionsToProps = dispatch => {
-  return {
-    displayModalWithComponent: ({ component, title }) => {
-      dispatch({
-        type: DISPLAY_MODAL_WITH_COMPONENT,
-        payload: { component, title },
-      });
-    },
-    hiddeModal: () => dispatch({ type: HIDDE_MODAL }),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(modalActionCreators, dispatch),
+});
 
-export default connect(null, mapActionsToProps)(BurgerBuilder);
+export default connect(null, mapDispatchToProps)(BurgerBuilder);

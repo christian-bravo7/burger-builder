@@ -1,13 +1,13 @@
 import { Component } from 'react';
 import proptypes from 'prop-types';
 
-import createOrder from '@/api/createOrder';
+import Burger from '@/components/Burger/Burger';
+import CustomerInformationForm from '@/components/Customer/CustomerInformationForm/CustomerInformationForm';
 
 import deserializeQueryParams from '@/utils/deserializeQueryParams';
 import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
 
-import Burger from '@/components/Burger/Burger';
-import CustomerInformationForm from '@/components/Customer/CustomerInformationForm/CustomerInformationForm';
+import createOrder from '@/api/createOrder';
 
 import classes from '@/pages/Checkout/Checkout.module.scss';
 

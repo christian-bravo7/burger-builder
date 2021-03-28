@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import proptypes from 'prop-types';
 
 import MainLayout from '@/layouts/Main/MainLayout';
@@ -13,21 +14,14 @@ import Aux from '@/components/App/Aux/Aux';
 import AppModal from '@/components/App/Modal/AppModal';
 import AppNotifications from '@/components/Notifications/Notifications';
 
-import {
-  DISPLAY_MODAL_WITH_COMPONENT,
-  HIDDE_MODAL,
-} from '@/store/actions/modal';
-import {
-  ADD_NOTIFICATION,
-  DELETE_NOTIFICATION,
-} from './store/actions/notifications';
+import notificationsActionCreators from '@/store/actionCreators/notifications';
 
 class App extends Component {
   handleSetNotification = (type, message) => {
     const notification = { type, message };
     const notificationId = Date.now();
     const timeoutId = setTimeout(
-      this.props.onDeleteNotification,
+      this.props.deleteNotification,
       5000,
       notificationId
     );
@@ -35,7 +29,7 @@ class App extends Component {
     notification.id = notificationId;
     notification.timeoutId = timeoutId;
 
-    this.props.onAddNotification(notification);
+    this.props.addNotification(notification);
   };
 
   render () {
@@ -68,41 +62,16 @@ class App extends Component {
 
 App.propTypes = {
   isModalActive: proptypes.bool,
-  modalComponent: proptypes.element,
-  modalTitle: proptypes.string,
-  displayModalWithComponent: proptypes.func,
-  hiddeModal: proptypes.func,
-  onDeleteNotification: proptypes.func,
-  onAddNotification: proptypes.func,
+  deleteNotification: proptypes.func,
+  addNotification: proptypes.func,
 };
 
-const mapStateToProps = state => {
-  return {
-    isModalActive: state.modal.isActive,
-    modalComponent: state.modal.component,
-    modalTitle: state.modal.title,
-  };
-};
+const mapStateToProps = state => ({
+  isModalActive: state.modal.isActive,
+});
 
-const mapActionsToProps = dispatch => {
-  return {
-    displayModalWithComponent: ({ component, title }) => {
-      dispatch({
-        type: DISPLAY_MODAL_WITH_COMPONENT,
-        payload: { component, title },
-      });
-    },
-    hiddeModal: () => dispatch({ type: HIDDE_MODAL }),
-    onAddNotification: notification => {
-      dispatch({ type: ADD_NOTIFICATION, payload: { notification } });
-    },
-    onDeleteNotification: notificationId => {
-      dispatch({
-        type: DELETE_NOTIFICATION,
-        payload: { notificationId },
-      });
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(notificationsActionCreators, dispatch),
+});
 
-export default connect(mapStateToProps, mapActionsToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

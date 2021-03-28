@@ -1,13 +1,15 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import proptypes from 'prop-types';
-
-import { axiosClient } from '@/utils/axios';
 
 import AppNotification from '@/components/Notifications/Notification/Notification';
 
+import { axiosClient } from '@/utils/axios';
+
+import { deleteNotification } from '@/store/actionCreators/notifications';
+
 import classes from '@/components/Notifications/Notifications.module.scss';
-import { DELETE_NOTIFICATION } from '@/store/actions/notifications';
-import { connect } from 'react-redux';
 
 const messages = {
   'create-order-success': 'Your order has been created successfully',
@@ -41,7 +43,7 @@ class AppNotifications extends Component {
           ({ message, type, id }, index) => (
             <AppNotification
               onDismiss={() => {
-                this.props.onDeleteNotification(id);
+                this.props.deleteNotification(id);
               }}
               key={index}
               message={message}
@@ -57,7 +59,7 @@ class AppNotifications extends Component {
 AppNotifications.propTypes = {
   notifications: proptypes.array,
   onSetNotification: proptypes.func.isRequired,
-  onDeleteNotification: proptypes.func.isRequired,
+  deleteNotification: proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -66,16 +68,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onDeleteNotification: notificationId => {
-      dispatch({
-        type: DELETE_NOTIFICATION,
-        payload: { notificationId },
-      });
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ deleteNotification }),
+});
 
 export default connect(
   mapStateToProps,

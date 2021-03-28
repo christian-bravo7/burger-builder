@@ -1,8 +1,8 @@
 import { Component } from 'react';
 
-import getOrders from '@/api/getOrders';
-
 import OrderCard from '@/components/Order/OrderCard/OrderCard';
+
+import getOrders from '@/api/getOrders';
 
 import classes from '@/pages/Orders/Orders.module.scss';
 

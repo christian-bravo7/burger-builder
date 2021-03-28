@@ -1,17 +1,18 @@
 import proptypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import AppBackdrop from '@/components/App/Backdrop/Backdrop';
 import CloseButton from '@/components/App/CloseButton/CloseButton';
 
+import { hiddeModal } from '@/store/actionCreators/modal';
+
 import classes from '@/components/App/Modal/AppModal.module.scss';
 
-import { HIDDE_MODAL } from '@/store/actions/modal';
-
-const AppModal = ({ component, title, onClose }) => {
+const AppModal = ({ component, title, hiddeModal }) => {
   return (
     <div className={classes.AppModal}>
-      <AppBackdrop onClick={onClose} />
+      <AppBackdrop onClick={hiddeModal} />
       <div className={classes.AppModal__Card_Container}>
         <div className={classes.AppModal__CardScrollContainer}>
           <div className={classes.AppModal__Card}>
@@ -23,7 +24,7 @@ const AppModal = ({ component, title, onClose }) => {
         </div>
         <CloseButton
           className={classes.AppModal__CloseButton}
-          onClick={onClose}
+          onClick={hiddeModal}
         />
       </div>
     </div>
@@ -36,7 +37,7 @@ AppModal.propTypes = {
     proptypes.string,
   ]),
   title: proptypes.string,
-  onClose: proptypes.func.isRequired,
+  hiddeModal: proptypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -46,12 +47,8 @@ const mapStateToProps = state => {
   };
 };
 
-const mapActionsToProps = dispatch => {
-  return {
-    onClose: () => {
-      dispatch({ type: HIDDE_MODAL });
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ hiddeModal }, dispatch),
+});
 
-export default connect(mapStateToProps, mapActionsToProps)(AppModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AppModal);
