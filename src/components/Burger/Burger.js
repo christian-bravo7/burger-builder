@@ -3,7 +3,7 @@ import proptypes from 'prop-types';
 import BurgerIngredient from '@/components/Burger/BurgerIngredient/BurgerIngredient';
 import BurgerPrice from '@/components/Burger/BurgerPrice/BurgerPrice';
 
-import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
+import getTotalPriceForIngredients from '@/utils/formatPrice/getTotalPriceForIngredients';
 
 import classes from '@/components/Burger/Burger.module.scss';
 

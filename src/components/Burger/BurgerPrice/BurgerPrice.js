@@ -2,7 +2,7 @@ import proptypes from 'prop-types';
 
 import classes from '@/components/Burger/BurgerPrice/BurgerPrice.module.scss';
 
-import formatPrice from '@/utils/formatPrice';
+import formatPrice from '@/utils/formatPrice/formatPrice';
 
 const BurgerPrice = ({ totalCost }) => {
   return (

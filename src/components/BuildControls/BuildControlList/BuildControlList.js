@@ -3,7 +3,7 @@ import proptypes from 'prop-types';
 import BuildControl from '@/components/BuildControls/BuildControl/BuildControl';
 
 import ingredientsConfig from '@/utils/config';
-import formatPrice from '@/utils/formatPrice';
+import formatPrice from '@/utils/formatPrice/formatPrice';
 
 import classes from '@/components/BuildControls/BuildControlList/BuildControlList.module.scss';
 

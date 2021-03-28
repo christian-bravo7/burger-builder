@@ -4,8 +4,8 @@ import proptypes from 'prop-types';
 import Burger from '@/components/Burger/Burger';
 import CustomerInformationForm from '@/components/Customer/CustomerInformationForm/CustomerInformationForm';
 
-import deserializeQueryParams from '@/utils/deserializeQueryParams';
-import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
+import deserializeQueryParams from '@/utils/queryParams/deserializeQueryParams';
+import getTotalPriceForIngredients from '@/utils/formatPrice/getTotalPriceForIngredients';
 
 import createOrder from '@/api/createOrder';
 

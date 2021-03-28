@@ -14,7 +14,10 @@ import Aux from '@/components/App/Aux/Aux';
 import AppModal from '@/components/App/Modal/AppModal';
 import AppNotifications from '@/components/Notifications/Notifications';
 
-import notificationsActionCreators from '@/store/actionCreators/notifications';
+import {
+  addNotification,
+  deleteNotification,
+} from '@/store/actionCreators/notifications';
 
 class App extends Component {
   handleSetNotification = (type, message) => {
@@ -71,7 +74,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(notificationsActionCreators, dispatch),
+  ...bindActionCreators(
+    { addNotification, deleteNotification },
+    dispatch
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

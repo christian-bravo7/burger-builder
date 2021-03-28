@@ -3,9 +3,9 @@ import proptypes from 'prop-types';
 import AppButton from '@/components/App/Button/AppButton';
 import OrderDetailsTable from '@/components/Order/OrderDetailsTable/OrderDetailsTable';
 
-import formatPrice from '@/utils/formatPrice';
+import formatPrice from '@/utils/formatPrice/formatPrice';
 import ingredientsConfig from '@/utils/config';
-import getTotalPriceForIngredients from '@/utils/getTotalPriceForIngredients';
+import getTotalPriceForIngredients from '@/utils/formatPrice/getTotalPriceForIngredients';
 
 import classes from '@/components/Order/OrderDetails/OrderDetails.module.scss';
 

@@ -8,9 +8,12 @@ import AppButton from '@/components/App/Button/AppButton';
 import OrderDetails from '@/components/Order/OrderDetails/OrderDetails';
 import BuildControlList from '@/components/BuildControls/BuildControlList/BuildControlList';
 
-import serializeQueryParams from '@/utils/serializeQueryParams';
+import serializeQueryParams from '@/utils/queryParams/serializeQueryParams';
 
-import modalActionCreators from '@/store/actionCreators/modal';
+import {
+  displayModalWithComponent,
+  hiddeModal,
+} from '@/store/actionCreators/modal';
 
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
 
@@ -124,7 +127,10 @@ BurgerBuilder.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(modalActionCreators, dispatch),
+  ...bindActionCreators(
+    { displayModalWithComponent, hiddeModal },
+    dispatch
+  ),
 });
 
 export default connect(null, mapDispatchToProps)(BurgerBuilder);
