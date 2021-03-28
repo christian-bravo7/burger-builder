@@ -15,22 +15,21 @@ import {
   hiddeModal,
 } from '@/store/actionCreators/modal';
 
+import {
+  incrementIngredientCount,
+  decrementIngredientCount,
+} from '@/store/actionCreators/burger';
+
 import classes from '@/pages/BurgerBuilder/BurgerBuilder.module.scss';
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      bacon: 2,
-      meat: 2,
-      salad: 0,
-      cheese: 1,
-    },
     isLoadingOrder: false,
   };
 
   get isCompleteOrderButtonDisabled () {
     const areAddedIngredients = Object.values(
-      this.state.ingredients
+      this.props.ingredients
     ).every(ingredientCount => ingredientCount === 0);
 
     return areAddedIngredients;
@@ -46,32 +45,10 @@ class BurgerBuilder extends Component {
     }
   }
 
-  handleIngredientState = (ingredient, callback) => {
-    this.setState(({ ingredients }) => {
-      const ingredientQuantity = ingredients[ingredient];
-      const newIngredientsState = {
-        ...ingredients,
-        [ingredient]: callback(ingredientQuantity),
-      };
-
-      return { ingredients: newIngredientsState };
-    });
-  };
-
-  handleAddIngredient = ingredient => {
-    this.handleIngredientState(ingredient, quantity => quantity + 1);
-  };
-
-  handleRemoveIngredient = ingredient => {
-    this.handleIngredientState(ingredient, quantity =>
-      quantity > 0 ? quantity - 1 : quantity
-    );
-  };
-
   handleConfirmOrder = () => {
     this.props.hiddeModal();
 
-    const queryParams = serializeQueryParams(this.state.ingredients);
+    const queryParams = serializeQueryParams(this.props.ingredients);
 
     this.props.history.push({
       pathname: '/checkout',
@@ -83,7 +60,7 @@ class BurgerBuilder extends Component {
     const component = (
       <OrderDetails
         isLoading={this.state.isLoadingOrder}
-        ingredientsState={this.state.ingredients}
+        ingredientsState={this.props.ingredients}
         onComplete={this.handleConfirmOrder}
       />
     );
@@ -98,11 +75,11 @@ class BurgerBuilder extends Component {
     return (
       <div className={classes.BurgerBuilder}>
         <div className={classes.BurgerBuilder__Content}>
-          <Burger ingredients={this.state.ingredients} />
+          <Burger ingredients={this.props.ingredients} />
           <BuildControlList
-            ingredientsState={this.state.ingredients}
-            onAddIngredient={this.handleAddIngredient}
-            onRemoveIngredient={this.handleRemoveIngredient}
+            ingredientsState={this.props.ingredients}
+            onAddIngredient={this.props.incrementIngredientCount}
+            onRemoveIngredient={this.props.decrementIngredientCount}
           />
         </div>
         <div className={classes.CompleteOrderButton}>
@@ -122,15 +99,29 @@ BurgerBuilder.propTypes = {
   history: proptypes.shape({
     push: proptypes.func,
   }),
+  ingredients: proptypes.object,
   displayModalWithComponent: proptypes.func,
   hiddeModal: proptypes.func,
+  incrementIngredientCount: proptypes.func,
+  decrementIngredientCount: proptypes.func,
 };
+
+const mapStateToProps = state => ({
+  ingredients: state.burger.ingredients,
+});
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     { displayModalWithComponent, hiddeModal },
     dispatch
   ),
+  ...bindActionCreators(
+    { incrementIngredientCount, decrementIngredientCount },
+    dispatch
+  ),
 });
 
-export default connect(null, mapDispatchToProps)(BurgerBuilder);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BurgerBuilder);

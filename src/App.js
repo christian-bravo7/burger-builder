@@ -1,8 +1,8 @@
+import proptypes from 'prop-types';
 import { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import proptypes from 'prop-types';
 
 import MainLayout from '@/layouts/Main/MainLayout';
 

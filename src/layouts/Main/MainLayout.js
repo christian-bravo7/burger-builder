@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import proptypes from 'prop-types';
+import { Component } from 'react';
 
 import Navbar from '@/components/App/Navbar/Navbar';
 import Sidebar from '@/components/App/Sidebar/Sidebar';
